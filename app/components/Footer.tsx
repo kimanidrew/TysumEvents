@@ -133,7 +133,7 @@ const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition-all duration-300 transform hover:scale-110"
             >
-              <FaTwitter className="w-5 h-5" />
+              <FaXTwitter className="w-5 h-5" />
             </a>
           </div>
         </div>
