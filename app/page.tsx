@@ -27,8 +27,8 @@ const FEATURES = [
   },
   {
     icon: Heart,
-    title: 'Signature Floral Experience',
-    description: 'Elegant cherry blossom inspired styling across every detail and space.',
+    title: 'Signature Experience',
+    description: 'Elegant, cinematic styling crafted with premium attention to detail.',
   },
   {
     icon: Zap,
@@ -46,15 +46,14 @@ export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft } = scrollContainerRef.current;
-      const offset = direction === 'left' ? -340 : 340;
+    if (!scrollContainerRef.current) return;
 
-      scrollContainerRef.current.scrollTo({
-        left: scrollLeft + offset,
-        behavior: 'smooth',
-      });
-    }
+    const offset = direction === 'left' ? -380 : 380;
+
+    scrollContainerRef.current.scrollBy({
+      left: offset,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -62,44 +61,53 @@ export default function Home() {
       {/* HERO */}
       <HeroSection />
 
-      {/* WHY CHOOSE SECTION */}
+      {/* WHY CHOOSE SECTION (DARK LUXURY) */}
       <motion.section
-        className="section-padding bg-gradient-to-b from-transparent to-pink-50 relative overflow-hidden"
+        className="section-padding bg-transparent relative overflow-hidden"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
         variants={fadeUp}
       >
-        <div className="absolute top-10 left-10 text-5xl animate-bounce opacity-20">🎈</div>
-        <div className="absolute bottom-10 right-20 text-6xl animate-bounce opacity-20">🎈</div>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-10 left-10 text-5xl">✨</div>
+          <div className="absolute bottom-10 right-20 text-6xl">✨</div>
+        </div>
 
         <div className="container-responsive max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6">
-              Why Choose <span className="text-pink-600">Tysum</span> Global Events?
+            <h2 className="text-5xl md:text-6xl font-extrabold text-black mb-6">
+              Why Choose <span className="gradient-text">Tysum</span> Global Events?
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              We don’t just plan events — we design experiences that feel cinematic, emotional, and unforgettable.
+            <p className="text-xl text-gray-800 max-w-3xl mx-auto">
+              We design cinematic luxury experiences that transform moments into timeless memories.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {FEATURES.map((feature, i) => {
               const Icon = feature.icon;
+
               return (
                 <motion.div
                   key={i}
-                  className="p-10 rounded-3xl bg-white shadow-xl  text-center hover:scale-105 transition-transform"
+                  className="p-10 rounded-2xl bg-white/5 border border-yellow-500/10 shadow-2xl backdrop-blur-md text-center hover:scale-105 transition-transform"
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.2 }}
                 >
-                  <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-pink-100 to-rose-200 flex items-center justify-center">
-                    <Icon className="w-12 h-12 text-rose-600" />
+                  <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20">
+                    <Icon className="w-12 h-12 text-yellow-400" />
                   </div>
-                  <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                  <p className="text-gray-600 text-lg">{feature.description}</p>
+
+                  <h3 className="text-2xl font-bold mb-3 text-black">
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-gray-500 text-lg">
+                    {feature.description}
+                  </p>
                 </motion.div>
               );
             })}
@@ -107,64 +115,70 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* FULL WIDTH SNAP CAROUSEL */}
+      {/* FULL WIDTH CAROUSEL */}
       <motion.section
-        className="relative w-screen max-w-none overflow-hidden"
+        className="relative w-screen max-w-none overflow-hidden bg-transparent"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
         variants={fadeUp}
       >
-        <div className="absolute right-0 top-1/2 opacity-20 hidden lg:block">
+        <div className="absolute right-0 top-1/2 opacity-10 hidden lg:block">
           <WisteriaFlower size="xl" delay={1} opacity={0.2} />
         </div>
 
+        {/* HEADER */}
         <div className="w-full px-0 mx-0">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 px-6 md:px-15 pt-16">
-            <div className="text-left">
-              <h2 className="text-4xl md:text-6xl font-black mb-4 gradient-text">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 px-6 md:px-16 pt-10">
+            <div>
+              <h2 className="text-4xl md:text-6xl font-black gradient-text">
                 Featured Experiences
               </h2>
-              <p className="text-lg md:text-xl text-gray-700 max-w-xl">
-                Bespoke luxury celebration styles crafted to inspire and impress.
+              <p className="text-gray-500 mt-3 max-w-xl font-semibold">
+                Bespoke luxury celebrations crafted with cinematic detail.
               </p>
             </div>
 
-            <div className="flex items-center gap-3 self-start md:self-end">
+            <div className="flex gap-3">
               <button
                 onClick={() => scroll('left')}
-                className="cursor-pointer w-12 h-12 rounded-full border border-pink-200 bg-white hover:bg-pink-50 active:scale-95 transition flex items-center justify-center text-gray-700 shadow-sm"
-                aria-label="Scroll left"
+                className="w-12 h-12 rounded-full border border-yellow-500/20 bg-white/5 hover:bg-yellow-500/10 transition flex items-center justify-center text-yellow-400"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft />
               </button>
+
               <button
                 onClick={() => scroll('right')}
-                className="cursor-pointer w-12 h-12 rounded-full border border-pink-200 bg-white hover:bg-pink-50 active:scale-95 transition flex items-center justify-center text-gray-700 shadow-sm"
-                aria-label="Scroll right"
+                className="w-12 h-12 rounded-full border border-yellow-500/20 bg-white/5 hover:bg-yellow-500/10 transition flex items-center justify-center text-yellow-400"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight />
               </button>
             </div>
           </div>
 
-          {/* FULL WIDTH SCROLLER */}
+          {/* CAROUSEL (EDGE TO EDGE FIXED) */}
           <div
             ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto pb-8 pt-2 scrollbar-none snap-x snap-mandatory scroll-smooth px-4 sm:px-6 lg:px-8 scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8"
-            style={{ WebkitOverflowScrolling: 'touch' }}
+            className="flex gap-6 overflow-x-auto scrollbar-none snap-x snap-mandatory scroll-smooth px-0"
           >
             {CELEBRATION_TYPES.map((event, i) => (
-              <div key={event.id} className="w-[300px] sm:w-[350px] shrink-0 snap-start">
-                <EventCard category={event.category} keyword={event.searchKeyword} index={i} />
+              <div
+                key={event.id}
+                className="w-[320px] sm:w-[350px] shrink-0 snap-start first:pl-6 last:pr-6"
+              >
+                <EventCard
+                  category={event.category}
+                  index={i}
+                />
               </div>
             ))}
           </div>
 
-          <div className="text-center mt-10 pb-16">
+          {/* CTA LINK */}
+          <div className="text-center mt-12 pb-16">
             <Link
               href="/events"
-              className="inline-block px-8 py-4 bg-pink-600 text-white rounded-full font-bold text-lg hover:scale-105 transition shadow-lg shadow-pink-600/20"
+              className="inline-block px-10 py-4 rounded-full font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 hover:scale-105 transition shadow-lg"
             >
               View All Categories
             </Link>
@@ -172,7 +186,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* CTA WITH OPACITY BACKGROUND */}
+      {/* CTA SECTION (BLACK + GOLD) */}
       <motion.section
         className="section-padding relative overflow-hidden"
         initial="hidden"
@@ -180,21 +194,27 @@ export default function Home() {
         viewport={{ once: true }}
         variants={fadeUp}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-rose-500/60 to-pink-600/60" />
+        {/* overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-[#0a0a0a]/90 to-black/90" />
 
-        <div className="absolute text-6xl top-10 left-10 opacity-20">🎈</div>
-        <div className="absolute text-7xl bottom-10 right-10 opacity-20">🎈</div>
+        {/* gold glow */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-10 left-10 w-72 h-72 bg-yellow-500 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-10 w-72 h-72 bg-yellow-400 rounded-full blur-3xl" />
+        </div>
 
         <div className="relative container-responsive max-w-7xl mx-auto text-center">
           <h2 className="text-5xl md:text-6xl font-extrabold text-white mb-6">
             Let’s Create Something Extraordinary
           </h2>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto mb-10">
-            Weddings, corporate events, private celebrations — we bring it all to life.
+
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+            Weddings, corporate events, private celebrations — designed with luxury precision.
           </p>
+
           <Link
             href="/events/create"
-            className="inline-block px-10 py-5 bg-white text-pink-600 rounded-full font-bold text-xl hover:scale-110 transition shadow-xl"
+            className="inline-block px-12 py-5 rounded-full font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 hover:scale-110 transition shadow-xl"
           >
             Start Planning Today
           </Link>

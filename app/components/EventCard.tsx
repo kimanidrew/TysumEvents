@@ -14,7 +14,6 @@ import {
 
 interface EventCardProps {
   category?: string;
-  keyword?: string;
   image?: string;
   index?: number;
 }
@@ -29,34 +28,34 @@ const CATEGORY_STYLES: Record<
   }
 > = {
   Wedding: {
-    iconBg: 'bg-pink-500 text-white',
-    badgeBg: 'bg-pink-500/20 text-pink-100 border-pink-400/30',
+    iconBg: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20',
+    badgeBg: 'bg-yellow-500/10 text-yellow-300 border-yellow-500/20',
     icon: Heart,
-    tagline: 'Crafting Your Everlasting Luxury Love Story',
+    tagline: 'Crafting Everlasting Luxury Love Stories',
   },
   'Birthday Party': {
-    iconBg: 'bg-purple-500 text-white',
-    badgeBg: 'bg-purple-500/20 text-purple-100 border-purple-400/30',
+    iconBg: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20',
+    badgeBg: 'bg-yellow-500/10 text-yellow-300 border-yellow-500/20',
     icon: Cake,
-    tagline: 'Cinematic, Energetic & Vibrant Celebrations',
+    tagline: 'Cinematic Celebrations with Golden Energy',
   },
   'Corporate Event': {
-    iconBg: 'bg-blue-600 text-white',
-    badgeBg: 'bg-blue-500/20 text-blue-100 border-blue-400/30',
+    iconBg: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20',
+    badgeBg: 'bg-yellow-500/10 text-yellow-300 border-yellow-500/20',
     icon: Briefcase,
-    tagline: 'High-Impact Immersive Production & Design',
+    tagline: 'High-Impact Corporate Luxury Experiences',
   },
   'Bridal Shower': {
-    iconBg: 'bg-rose-400 text-white',
-    badgeBg: 'bg-rose-500/20 text-rose-100 border-rose-400/30',
+    iconBg: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20',
+    badgeBg: 'bg-yellow-500/10 text-yellow-300 border-yellow-500/20',
     icon: Sparkles,
-    tagline: 'Chic, Intimate & Elegant Signature Styling',
+    tagline: 'Elegant Intimate Golden Moments',
   },
   Other: {
-    iconBg: 'bg-zinc-700 text-white',
-    badgeBg: 'bg-zinc-500/20 text-zinc-200 border-zinc-500/30',
+    iconBg: 'bg-white/5 text-gray-300 border border-white/10',
+    badgeBg: 'bg-white/5 text-gray-300 border border-white/10',
     icon: HelpCircle,
-    tagline: 'Custom Bespoke Event Concept Engineering',
+    tagline: 'Custom Bespoke Luxury Experiences',
   },
 };
 
@@ -96,11 +95,11 @@ const EventCard: React.FC<EventCardProps> = ({
       href={`/events?category=${encodeURIComponent(matchedKey)}`}
       className="block w-full"
     >
-      {/* CARD BODY: Removed hover transform movements entirely */}
       <div
-        className="group relative min-h-[440px] w-full overflow-hidden rounded-[34px] border border-white/10 bg-slate-950 shadow-xl transition-all duration-500 flex flex-col justify-between p-7"
+        className="group relative min-h-[460px] w-full overflow-hidden rounded-[30px] border border-yellow-500/10 bg-black transition-all duration-700 flex flex-col justify-between p-7"
         style={{ animationDelay: `${index * 0.08}s` }}
       >
+
         {/* IMAGE */}
         <div className="absolute inset-0 scale-105 transition-transform duration-700 group-hover:scale-110">
           <Image
@@ -108,52 +107,48 @@ const EventCard: React.FC<EventCardProps> = ({
             alt={matchedKey}
             fill
             sizes="(max-width:768px) 100vw, 33vw"
-            className="object-cover opacity-80"
+            className="object-cover opacity-70"
             priority={index < 4}
           />
         </div>
 
-        {/* GRADIENT OVERLAY (Baseline Darkness) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black/95 z-0" />
+        {/* GOLD DARK OVERLAY */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/95 z-0" />
 
-        {/* EXTRA HOVER OVERLAY: Darkens cleanly on mouseover state tracking */}
-        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-500 z-0" />
+        {/* GOLD SHIMMER LAYER */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition duration-500 bg-gradient-to-r from-yellow-500/10 via-transparent to-yellow-500/10" />
 
-        {/* SOFT FLOATING LIGHT EFFECT */}
-        <div className="absolute -top-20 -left-20 h-60 w-60 rounded-full bg-pink-500/20 blur-3xl opacity-60 animate-pulse z-0" />
+        {/* SOFT GOLD GLOW */}
+        <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-yellow-500/10 blur-3xl opacity-50 animate-pulse" />
 
-        {/* TOP INTERFACE (Pinned securely above background media arrays) */}
+        {/* TOP ICON */}
         <div className="relative z-10 flex items-center justify-between w-full">
-          <div
-            className={`flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg transition-transform duration-500 group-hover:rotate-6 ${currentStyle.iconBg}`}
-          >
-            <Icon className="h-6 w-6" />
+          <div className={`flex h-20 w-20 items-center justify-center rounded-2xl ${currentStyle.iconBg}`}>
+            <Icon className="h-10 w-10" />
           </div>
-
         </div>
 
-        {/* BOTTOM COMBINED CONTAINER: Groups text and CTA together tightly at the bottom */}
+        {/* CONTENT */}
         <div className="relative z-10 w-full mt-auto space-y-6 pt-20">
-          
-          {/* CATEGORY TITLE + TAGLINE */}
-          <div className="space-y-2 text-left">
-            <h3 className="pr-20 text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight drop-shadow-md">
+
+          <div className="space-y-2 pr-20">
+            <h3 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
               {matchedKey}
             </h3>
 
-            <p className="text-sm text-slate-200/90 line-clamp-2 font-light">
+            <p className="text-sm text-gray-300/90 font-semibold">
               {currentStyle.tagline}
             </p>
           </div>
 
-          {/* BOTTOM CTA LINE */}
-          <div className="flex items-center justify-between pt-5 border-t border-white/10 w-full">
-            <span className="text-lg font-bold tracking-wide text-gray-400/60 group-hover:text-pink-200 transition">
-              Explore 
+          {/* CTA */}
+          <div className="flex items-center justify-between pt-5 border-t border-white/10">
+            <span className="text-sm font-semibold tracking-widest text-yellow-400/70">
+              Explore
             </span>
 
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 transition-all duration-300 group-hover:bg-pink-600 group-hover:border-pink-500 group-hover:scale-110">
-              <ArrowRight className="h-4 w-4 text-white transition-transform group-hover:translate-x-1" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 border border-yellow-500/20 transition-all duration-300 group-hover:bg-yellow-500 group-hover:scale-110">
+              <ArrowRight className="h-4 w-4 text-yellow-400 group-hover:text-black transition" />
             </div>
           </div>
 
