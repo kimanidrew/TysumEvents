@@ -50,7 +50,7 @@ const HeroSection: React.FC = () => {
               </span>
             </div>
 
-            <h1 className="text-7xl font-black text-gray-900 leading-tight">
+            <h1 className="text-3xl md:text-7xl font-black text-gray-900 leading-tight">
                Crafting <span className="gradient-text">experiences</span> <br/>that become
               <span className="block gradient-text">
                  lifelong memories.
