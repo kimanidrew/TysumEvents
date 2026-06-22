@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="b" x1="0" x2="1">
+      <stop offset="0%" stop-color="#fff0f8" />
+      <stop offset="100%" stop-color="#ffd6e6" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#b)" />
+  <circle cx="200" cy="200" r="120" fill="#ff9ccf" opacity="0.08" />
+  <circle cx="1000" cy="560" r="200" fill="#ff77b3" opacity="0.06" />
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#7d3b5a">Production Highlights</text>
+</svg>

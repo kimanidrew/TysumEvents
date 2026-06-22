@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="d" x1="0" x2="1">
+      <stop offset="0%" stop-color="#fff2f7" />
+      <stop offset="100%" stop-color="#ffdbe9" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#d)" />
+  <g fill="#ff9ccf" opacity="0.06">
+    <ellipse cx="600" cy="400" rx="480" ry="220" />
+  </g>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Helvetica, Arial" font-size="40" fill="#7d3b5a">Corporate Production</text>
+</svg>

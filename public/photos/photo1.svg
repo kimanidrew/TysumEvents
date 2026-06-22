@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="a" x1="0" x2="1">
+      <stop offset="0%" stop-color="#ffeef6" />
+      <stop offset="100%" stop-color="#ffd1ea" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#a)" />
+  <g fill="#ff77b3" opacity="0.08">
+    <ellipse cx="200" cy="150" rx="220" ry="110" />
+    <ellipse cx="900" cy="650" rx="300" ry="140" />
+  </g>
+  <g fill="#b85c86">
+    <rect x="150" y="250" width="900" height="380" rx="28" opacity="0.06" />
+  </g>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Helvetica, Arial" font-size="40" fill="#7d3b5a">Tysum Global Events</text>
+</svg>
