@@ -92,7 +92,7 @@ const EventCard: React.FC<EventCardProps> = ({
 
   return (
     <Link
-      href={`/events?category=${encodeURIComponent(matchedKey)}`}
+      href={`/events/category/${encodeURIComponent(matchedKey)}`}
       className="block w-full"
     >
       <div
