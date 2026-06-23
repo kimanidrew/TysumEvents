@@ -77,7 +77,7 @@ export default function Home() {
         <div className="container-responsive max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-extrabold text-black mb-6">
-              Why Choose <span className="gradient-text">Tysum</span> Global Events?
+              Why Choose <span className="bg-gradient-to-r from-yellow-500 to-yellow-700 bg-clip-text text-transparent">Tysum</span> Global Events?
             </h2>
             <p className="text-xl text-gray-800 max-w-3xl mx-auto">
               We design cinematic luxury experiences that transform moments into timeless memories.
