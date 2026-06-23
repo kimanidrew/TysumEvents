@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Plus } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,8 +12,10 @@ const Navigation: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
+
     handleScroll();
     window.addEventListener('scroll', handleScroll);
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -22,13 +24,21 @@ const Navigation: React.FC = () => {
     { label: 'Events', href: '/events' },
   ];
 
+  const isDarkPage =
+    pathname === '/' ||
+    pathname === '/not-found';
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         isOpen
-          ? 'bg-black/95'
+          ? isDarkPage
+            ? 'bg-black/95'
+            : 'bg-white'
           : scrolled
-          ? 'bg-black/60 backdrop-blur-xl border-b border-yellow-500/10'
+          ? isDarkPage
+            ? 'bg-black/60 backdrop-blur-xl border-b border-yellow-500/10'
+            : 'bg-white/80 backdrop-blur-xl border-b border-black/5'
           : 'bg-transparent'
       }`}
     >
@@ -38,11 +48,17 @@ const Navigation: React.FC = () => {
           {/* LOGO */}
           <Link
             href="/"
-            className="font-extrabold text-xl md:text-2xl tracking-tight text-white"
+            className="font-extrabold text-xl md:text-2xl tracking-tight"
           >
-            <span className="bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
-              Tysum Events
-            </span>
+            {isDarkPage ? (
+              <span className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+                Tysum Events
+              </span>
+            ) : (
+              <span className="bg-gradient-to-r from-yellow-600 via-amber-500 to-yellow-700 bg-clip-text text-transparent">
+                Tysum Events
+              </span>
+            )}
           </Link>
 
           {/* DESKTOP NAV */}
@@ -54,24 +70,25 @@ const Navigation: React.FC = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative text-sm tracking-wide font-semibold text-gray-300 hover:text-yellow-400 transition-colors group"
+                  className={`relative text-sm tracking-wide font-semibold transition-colors group ${
+                    isDarkPage
+                      ? 'text-gray-300 hover:text-yellow-400'
+                      : 'text-gray-700 hover:text-yellow-600'
+                  }`}
                 >
                   {item.label}
 
-                  {/* ACTIVE INDICATOR */}
                   <span
                     className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-[3px] rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 transition-all duration-300 ${
                       active ? 'w-6 opacity-100' : 'w-0 opacity-0'
                     }`}
                   />
 
-                  {/* HOVER GLOW */}
                   <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[3px] w-0 rounded-full bg-yellow-400/40 blur-md transition-all duration-300 group-hover:w-6" />
                 </Link>
               );
             })}
 
-            {/* CTA BUTTON */}
             <Link
               href="/events/create"
               className="btn-primary ml-4 px-6 py-3 rounded-full font-bold text-sm hover:scale-105 active:scale-95 transition-transform shadow-lg shadow-yellow-500/20"
@@ -83,7 +100,11 @@ const Navigation: React.FC = () => {
           {/* MOBILE BUTTON */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-xl hover:bg-white/10 transition text-yellow-400"
+            className={`md:hidden p-2 rounded-xl transition ${
+              isDarkPage
+                ? 'hover:bg-white/10 text-yellow-400'
+                : 'hover:bg-black/5 text-yellow-700'
+            }`}
           >
             {isOpen ? <X /> : <Menu />}
           </button>
@@ -91,14 +112,23 @@ const Navigation: React.FC = () => {
 
         {/* MOBILE MENU */}
         {isOpen && (
-          <div className="md:hidden mt-2 pb-6 space-y-4 bg-black/90 backdrop-blur-xl rounded-2xl border border-yellow-500/10 animate-fade-in-up">
-
+          <div
+            className={`md:hidden mt-2 pb-6 space-y-4 rounded-2xl animate-fade-in-up ${
+              isDarkPage
+                ? 'bg-black/90 backdrop-blur-xl border border-yellow-500/10'
+                : 'bg-white backdrop-blur-xl border border-black/5 shadow-xl'
+            }`}
+          >
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-4 py-3 text-lg font-semibold text-gray-300 hover:text-yellow-400 transition"
+                className={`block px-4 py-3 text-lg font-semibold transition ${
+                  isDarkPage
+                    ? 'text-gray-300 hover:text-yellow-400'
+                    : 'text-gray-700 hover:text-yellow-600'
+                }`}
               >
                 {item.label}
               </Link>
@@ -109,7 +139,7 @@ const Navigation: React.FC = () => {
               onClick={() => setIsOpen(false)}
               className="btn-primary block mx-4 text-center px-5 py-3 rounded-full text-black font-bold shadow-lg"
             >
-              Book an event
+              Book an Event
             </Link>
           </div>
         )}

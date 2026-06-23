@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { CheckCircle, AlertCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import FlowerBackground from '@/app/components/FlowerBackground';
 import WisteriaFlower from '@/app/components/WisteriaFlower';
 
@@ -10,9 +10,9 @@ export default function CreateEventPage() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    date: '',        // ✅ FIXED
-    time: '',        // ✅ FIXED
-    category: 'Festival',
+    date: '',
+    time: '',
+    category: 'Wedding',
     capacity: '',
     contactName: '',
     contactEmail: '',
@@ -24,20 +24,22 @@ export default function CreateEventPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const categories = [
-    'Festival',
     'Wedding',
-    'Corporate',
-    'Networking',
-    'Social',
-    'Charity',
-    'Conference',
-    'Workshop',
-    'Party',
+    'Corporate Event',
+    'Birthday Party',
+    'Bridal Shower',
+    'Office Celebration',
+    'Marriage Anniversary',
+    'Bespoke Gala',
     'Concert',
+    'Conference',
+    'Private Event',
   ];
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
 
@@ -57,23 +59,39 @@ export default function CreateEventPage() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.title.trim()) newErrors.title = 'Event title is required';
-    if (!formData.description.trim()) newErrors.description = 'Event description is required';
-    if (!formData.date) newErrors.date = 'Event date is required';
-    if (!formData.time) newErrors.time = 'Event time is required';
-    if (!formData.capacity) newErrors.capacity = 'Event capacity is required';
+    if (!formData.contactName.trim())
+      newErrors.contactName = 'Contact name is required';
 
-    if (!formData.contactName.trim()) newErrors.contactName = 'Contact name is required';
-    if (!formData.contactEmail.trim()) newErrors.contactEmail = 'Contact email is required';
-    if (!formData.contactPhone.trim()) newErrors.contactPhone = 'Contact phone is required';
+    if (!formData.contactEmail.trim())
+      newErrors.contactEmail = 'Contact email is required';
+
+    if (!formData.contactPhone.trim())
+      newErrors.contactPhone = 'Phone number is required';
+
+    if (!formData.title.trim())
+      newErrors.title = 'Event title is required';
+
+    if (!formData.date)
+      newErrors.date = 'Event date is required';
+
+    if (!formData.time)
+      newErrors.time = 'Event time is required';
+
+    if (!formData.capacity)
+      newErrors.capacity = 'Guest capacity is required';
+
+    if (!formData.description.trim())
+      newErrors.description = 'Description is required';
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
-    console.log('button clicked');
 
     if (!validateForm()) return;
 
@@ -92,7 +110,7 @@ export default function CreateEventPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        console.error('API ERROR:', result);
+        console.error(result);
         return;
       }
 
@@ -101,171 +119,190 @@ export default function CreateEventPage() {
       setFormData({
         title: '',
         description: '',
-        date: '',   // ✅ FIXED
-        time: '',   // ✅ FIXED
-        category: 'Festival',
+        date: '',
+        time: '',
+        category: 'Wedding',
         capacity: '',
         contactName: '',
         contactEmail: '',
         contactPhone: '',
       });
-
     } catch (error) {
-      console.error('NETWORK ERROR:', error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
+  const inputStyles =
+    'w-full px-5 py-4 bg-white border border-yellow-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-800 transition-all';
+
   return (
     <FlowerBackground>
-      <div className="section-padding">
-        <div className="container-responsive max-w-4xl mx-auto">
+      <div className="relative section-padding py-32">
+
+        {/* GOLD GLOW */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-yellow-400/10 blur-[140px] rounded-full pointer-events-none" />
+
+        <div className="container-responsive max-w-5xl mx-auto relative z-10">
 
           {/* HEADER */}
-          <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
-            <h1 className="text-h1 font-bold text-gray-900 mb-4">
-              Create Your Event
+          <div className="text-center mb-16 animate-fade-in-up">
+            <span className="inline-block px-5 py-2 rounded-full bg-yellow-100 text-yellow-800 font-semibold text-sm mb-6">
+              Luxury Event Planning
+            </span>
+
+            <h1 className="text-5xl md:text-6xl font-black mb-6 text-gray-900">
+              Start Planning Your
+              <span className="block bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-700 bg-clip-text text-transparent">
+                Extraordinary Event
+              </span>
             </h1>
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-              Fill in the details below to create and publish your event
+
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              Every unforgettable celebration begins with a vision.
+              Share your event details and let Tysum Global Events
+              transform them into an exceptional experience.
             </p>
           </div>
 
-          {/* SUCCESS */}
+          {/* SUCCESS MESSAGE */}
           {submitted && (
-            <div className="mb-8 bg-green-50 border-2 border-green-200 rounded-2xl p-6 flex items-center gap-4">
+            <div className="mb-8 rounded-2xl border border-green-200 bg-green-50 p-6 flex items-center gap-4">
               <CheckCircle className="w-8 h-8 text-green-600" />
               <div>
-                <h3 className="font-bold text-green-900">
-                  Event Created Successfully!
+                <h3 className="font-bold text-green-800">
+                  Event Request Submitted
                 </h3>
-                <p className="text-green-800">
-                  Your event has been sent successfully.
+                <p className="text-green-700">
+                  Thank you. Our team will contact you shortly.
                 </p>
               </div>
             </div>
           )}
 
           {/* FORM */}
-          <form onSubmit={handleSubmit} className="card-elevated p-6 md:p-10 animate-fade-in-up">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white/90 backdrop-blur-md border border-yellow-100 rounded-[32px] shadow-2xl p-8 md:p-12 animate-fade-in-up"
+          >
+            <div className="grid md:grid-cols-2 gap-6">
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-
-              {/* CONTACT NAME */}
               <input
                 type="text"
                 name="contactName"
-                placeholder="Contact Name"
+                placeholder="Full Name"
                 value={formData.contactName}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                className={inputStyles}
               />
 
-              {/* CONTACT EMAIL */}
               <input
                 type="email"
                 name="contactEmail"
-                placeholder="Contact Email"
+                placeholder="Email Address"
                 value={formData.contactEmail}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                className={inputStyles}
               />
 
-              {/* CONTACT PHONE */}
               <input
                 type="tel"
                 name="contactPhone"
-                placeholder="Contact Phone"
+                placeholder="Phone Number"
                 value={formData.contactPhone}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                className={inputStyles}
               />
 
-              {/* TITLE */}
               <input
                 type="text"
                 name="title"
                 placeholder="Event Title"
                 value={formData.title}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                className={inputStyles}
               />
 
-              {/* DATE */}
               <input
                 type="date"
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                className={inputStyles}
               />
 
-              {/* TIME */}
               <input
                 type="time"
                 name="time"
                 value={formData.time}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                className={inputStyles}
               />
 
-              {/* CATEGORY */}
               <select
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                className={inputStyles}
               >
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
+                {categories.map((category) => (
+                  <option key={category}>
+                    {category}
                   </option>
                 ))}
               </select>
 
-              {/* CAPACITY */}
               <input
                 type="number"
                 name="capacity"
-                placeholder="Guest Capacity"
+                placeholder="Expected Guests"
                 value={formData.capacity}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors"
+                className={inputStyles}
               />
 
-              {/* DESCRIPTION */}
               <textarea
                 name="description"
-                placeholder="Event Description"
+                rows={6}
+                placeholder="Tell us about your event..."
                 value={formData.description}
                 onChange={handleChange}
-                rows={5}
-                className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition-colors md:col-span-2"
+                className={`${inputStyles} md:col-span-2 resize-none`}
               />
 
             </div>
 
-            {/* BUTTON */}
-            <div className="mt-8 flex gap-4">
+            {/* ACTIONS */}
+            <div className="flex flex-col md:flex-row gap-4 mt-10">
+
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 btn-primary font-semibold"
+                className="flex-1 py-4 rounded-full bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-600 text-black font-bold text-lg hover:scale-105 transition-all shadow-lg shadow-yellow-500/20"
               >
-                {loading ? 'Creating Event...' : 'Create Event'}
+                {loading
+                  ? 'Submitting Request...'
+                  : 'Submit Event Request'}
               </button>
 
-              <Link href="/" className="flex-1 btn-secondary text-center font-semibold">
+              <Link
+                href="/"
+                className="flex-1 py-4 rounded-full border border-yellow-300 text-center font-semibold text-gray-700 hover:bg-yellow-50 transition"
+              >
                 Cancel
               </Link>
-            </div>
 
+            </div>
           </form>
 
-          {/* DECOR */}
-          <div className="absolute right-10 bottom-20 opacity-15 pointer-events-none hidden lg:block">
-            <WisteriaFlower size="lg" delay={1} opacity={0.15} />
+          {/* DECORATION */}
+          <div className="absolute right-0 bottom-0 opacity-10 hidden lg:block pointer-events-none">
+            <WisteriaFlower
+              size="lg"
+              delay={1}
+              opacity={0.1}
+            />
           </div>
 
         </div>
