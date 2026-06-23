@@ -131,7 +131,7 @@ export default function Home() {
         <div className="w-full px-0 mx-0">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 px-6 md:px-16 pt-10">
             <div>
-              <h2 className="text-4xl md:text-6xl font-black gradient-text">
+              <h2 className="text-4xl md:text-6xl font-black block bg-gradient-to-r from-yellow-500 to-yellow-700 bg-clip-text text-transparent">
                 Featured Experiences
               </h2>
               <p className="text-gray-500 mt-3 max-w-xl font-semibold">
