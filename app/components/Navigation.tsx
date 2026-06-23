@@ -19,9 +19,15 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Events', href: '/events' },
+    { label: 'About', href: '/about' }, // ✅ ADDED HERE
   ];
 
   const isDarkPage =
@@ -78,17 +84,20 @@ const Navigation: React.FC = () => {
                 >
                   {item.label}
 
+                  {/* ACTIVE LINE */}
                   <span
                     className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-[3px] rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 transition-all duration-300 ${
                       active ? 'w-6 opacity-100' : 'w-0 opacity-0'
                     }`}
                   />
 
+                  {/* HOVER GLOW */}
                   <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[3px] w-0 rounded-full bg-yellow-400/40 blur-md transition-all duration-300 group-hover:w-6" />
                 </Link>
               );
             })}
 
+            {/* CTA */}
             <Link
               href="/events/create"
               className="btn-primary ml-4 px-6 py-3 rounded-full font-bold text-sm hover:scale-105 active:scale-95 transition-transform shadow-lg shadow-yellow-500/20"
